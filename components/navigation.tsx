@@ -44,7 +44,7 @@ export function Navigation() {
           <div className="hidden md:flex items-center gap-3">
             <Button
               variant="outline"
-              className="border-primary text-primary hover:bg-primary/70 bg-transparent"
+              className="border-primary text-primary hover:text-primary/70 hover:bg-primary/70 bg-transparent"
             >
               <Link href={"/sign-in"}>Sign In</Link>
             </Button>
@@ -91,9 +91,9 @@ export function Navigation() {
             <div className="flex gap-2 pt-2">
               <Button
                 variant="outline"
-                className="flex-1 text-sm bg-transparent"
+                className="flex-1 border-primary text-primary hover:text-primary/70 hover:bg-primary/70 bg-transparent"
               >
-                Sign In
+                <Link href={"/sign-in"}>Sign In</Link>
               </Button>
               <Button className="flex-1 bg-primary text-primary-foreground text-sm">
                 Start Free
