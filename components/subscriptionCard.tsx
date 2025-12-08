@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import PaymentButton from "./payment-button";
+import PaymentButton from "./ui/payment-button";
 
 const SubscriptionCard = () => {
   return (
@@ -25,7 +25,7 @@ const SubscriptionCard = () => {
         </p>
       </CardContent>
       <CardFooter>
-        <PaymentButton />
+        <PaymentButton text="Upgrade" />
       </CardFooter>
     </Card>
   );

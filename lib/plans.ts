@@ -1,0 +1,46 @@
+export const plans = [
+  {
+    name: "Starter",
+    description: "Perfect for new creators",
+    monthlyPrice: 29,
+    annualPrice: 290,
+    features: [
+      "Up to 100 automated DMs/month",
+      "Basic automation flows",
+      "Email support",
+      "Basic analytics",
+      "Instagram lead form integration",
+    ],
+  },
+  {
+    name: "Professional",
+    description: "For growing businesses",
+    monthlyPrice: 79,
+    annualPrice: 790,
+    popular: true,
+    features: [
+      "Up to 1,000 automated DMs/month",
+      "Advanced automation flows",
+      "Priority support",
+      "Advanced analytics & reporting",
+      "Lead scoring & qualification",
+      "Custom integrations",
+      "API access",
+    ],
+  },
+  {
+    name: "Enterprise",
+    description: "For large operations",
+    monthlyPrice: null,
+    annualPrice: null,
+    features: [
+      "Unlimited automated DMs",
+      "Custom automation flows",
+      "Dedicated account manager",
+      "Enterprise analytics",
+      "White-label options",
+      "Custom integrations",
+      "Priority support 24/7",
+    ],
+  },
+];

@@ -2,6 +2,9 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import React from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { UserButton } from "@clerk/nextjs";
+import SearchBar from "@/components/ui/searchbar";
+import Notification from "@/components/ui/notification";
+// import DynamicBreadcrumb from "@/components/ui/dynamic-bread-crumb";
 
 export default async function layout({
   children,
@@ -13,15 +16,17 @@ export default async function layout({
   const { slug } = await params;
   return (
     <>
-      <div className="fixed top-6 right-6"></div>
       {/* {SideBar} */}
       <SidebarProvider>
         <AppSidebar slug={slug} />
-        <div className="flex flex-col w-full">
-          <div className="flex justify-between items-center m-6">
+        <div className="flex flex-col w-full m-4 gap-4">
+          <div className="flex justify-between items-center">
             <SidebarTrigger />
+            <SearchBar />
+            <Notification />
             <UserButton />
           </div>
+          {/* <DynamicBreadcrumb /> */}
           {children}
         </div>
       </SidebarProvider>

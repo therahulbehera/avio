@@ -30,6 +30,10 @@ export const metadata: Metadata = {
   },
   generator: "v0.app",
 };
+export const viewport = {
+  width: 1,
+  themeColor: "dark",
+};
 
 export default function RootLayout({
   children,
