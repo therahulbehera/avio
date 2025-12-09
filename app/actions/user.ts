@@ -65,3 +65,15 @@ export async function onBoardUser() {
     return { status: 500 };
   }
 }
+
+export async function onUserInfo() {
+  const user = await onCurrentUser();
+  try {
+    const profile = await findUser(user.id);
+    if (profile) return { status: 200, data: profile };
+    return { status: 404 };
+  } catch (error) {
+    return { status: 500 };
+    console.log("We're facing an error while finding user: ", error);
+  }
+}

@@ -16,9 +16,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SubscriptionCard from "./subscriptionCard";
 
-export function AppSidebar({ slug }: { slug: string }) {
+export function AppSidebar() {
   const page = usePathname();
-  console.log(slug, page);
+  console.log(page);
   const { open, openMobile, setOpenMobile } = useSidebar();
   const items = [
     {

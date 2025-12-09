@@ -4,21 +4,27 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { UserButton } from "@clerk/nextjs";
 import SearchBar from "@/components/ui/searchbar";
 import Notification from "@/components/ui/notification";
+import { QueryProvider } from "@/components/query-provider";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { PrefetchUserAutomations, PrefetchUserProfile } from "@/lib/prefetch";
 // import DynamicBreadcrumb from "@/components/ui/dynamic-bread-crumb";
 
 export default async function layout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
+  const queryClient = new QueryClient();
+
+  await PrefetchUserProfile(queryClient);
+
+  await PrefetchUserAutomations(queryClient);
+
+  const dehydratedState = dehydrate(queryClient);
   return (
     <>
-      {/* {SideBar} */}
       <SidebarProvider>
-        <AppSidebar slug={slug} />
+        <AppSidebar />
         <div className="flex flex-col w-full m-4 gap-4">
           <div className="flex justify-between items-center">
             <SidebarTrigger />
@@ -26,11 +32,11 @@ export default async function layout({
             <Notification />
             <UserButton />
           </div>
-          {/* <DynamicBreadcrumb /> */}
-          {children}
+          <QueryProvider dehydratedState={dehydratedState}>
+            {children}
+          </QueryProvider>
         </div>
       </SidebarProvider>
-      {/* {Navigation} */}
     </>
   );
 }
