@@ -9,8 +9,15 @@ import React from "react";
 import AutomationListTypeButton from "./automation-list-type-button";
 import Link from "next/link";
 import AutomationListItemTag from "./automation-list-item-badges";
+import TimeAgo from "./time-ago";
 
-const AutomationListItem = () => {
+const AutomationListItem = ({
+  title,
+  createdAt,
+}: {
+  title: string;
+  createdAt: string;
+}) => {
   return (
     <Link
       href={"/automations/2121"}
@@ -19,8 +26,8 @@ const AutomationListItem = () => {
       <Card className="gap-4">
         <CardHeader className="gap-1">
           <CardTitle className="flex justify-between">
-            <span>Title</span>
-            <span className="text-[12px]">Date Created</span>
+            <span>{title}</span>
+            <TimeAgo date={createdAt} />
           </CardTitle>
           <CardDescription className="text-neutral-400">
             Description

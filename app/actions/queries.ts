@@ -53,7 +53,15 @@ export async function createAutomation(clerkId: string) {
 export async function fetchAutomations(clerkId: string) {
   const user_with_automations = await client.user.findUnique({
     where: { clerkId },
-    include: { automations: true },
+    select: {
+      automations: {
+        orderBy: { createdAt: "asc" },
+        include: {
+          keywords: true,
+          listener: true,
+        },
+      },
+    },
   });
   return user_with_automations?.automations ?? [];
 }

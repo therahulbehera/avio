@@ -1,15 +1,9 @@
-import AutomationListItem from "./_components/automation-list-item";
+import Automations from "./_components/automations";
 
 const page = () => {
   return (
     <div className="flex flex-col gap-2">
-      <AutomationListItem />
-      <AutomationListItem />
-      <AutomationListItem />
-      <AutomationListItem />
-      <AutomationListItem />
-      <AutomationListItem />
-      <AutomationListItem />
+      <Automations />
     </div>
   );
 };
