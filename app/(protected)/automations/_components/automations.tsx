@@ -31,8 +31,8 @@ const Automations = () => {
 
   if (data?.automations.length == 0)
     return (
-      <div className="flex justify-center items-center p-20">
-        No automation found.
+      <div className="flex flex-col gap-12 justify-center items-center text-xl p-20">
+        <span>No automation found.</span>
       </div>
     );
 

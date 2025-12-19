@@ -6,6 +6,7 @@ import { QueryProvider } from "@/components/query-provider";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { PrefetchUserAutomations, PrefetchUserProfile } from "@/lib/prefetch";
 import ProtectedNavBar from "@/components/protected-nav-bar";
+import { Toaster } from "sonner";
 // import DynamicBreadcrumb from "@/components/ui/dynamic-bread-crumb";
 
 export default async function layout({
@@ -25,8 +26,9 @@ export default async function layout({
       <SidebarProvider>
         <AppSidebar />
         <div className="flex flex-col w-full m-4 gap-4">
-          <ProtectedNavBar />
           <QueryProvider dehydratedState={dehydratedState}>
+            <ProtectedNavBar />
+            <Toaster position="top-center" richColors theme="system" />
             {children}
           </QueryProvider>
         </div>
