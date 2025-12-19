@@ -33,7 +33,7 @@ export function AppSidebar() {
     },
     {
       title: "Automations",
-      url: "automations",
+      url: "/automations",
       icon: Activity,
     },
     {

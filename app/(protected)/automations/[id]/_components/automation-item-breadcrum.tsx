@@ -8,7 +8,7 @@ import {
 import { Pencil } from "lucide-react";
 import React from "react";
 
-const AutomationItemBreadcrumb = () => {
+const AutomationItemBreadcrumb = ({ name }: { name: string }) => {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -18,9 +18,7 @@ const AutomationItemBreadcrumb = () => {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink className="flex justify-between items-center gap-2 ">
-            <span className="max-w-40 truncate">
-              idasdfasdfasdfsasdfasdfasdfadsfasdfasdfsa
-            </span>{" "}
+            <span className="max-w-40 truncate">{name}</span>{" "}
             <Pencil size={14} />
           </BreadcrumbLink>
         </BreadcrumbItem>

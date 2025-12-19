@@ -3,11 +3,14 @@ import AutomationItemBreadcrumb from "./_components/automation-item-breadcrum";
 import { Button } from "@/components/ui/button";
 import AutomationItemPageButton from "../_components/automation-item-page-button";
 
-const page = () => {
+const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
+
+  console.log(slug);
   return (
     <div className="flex flex-col gap-4 justify-between items-center">
       <div className="flex justify-between items-center w-full">
-        <AutomationItemBreadcrumb />
+        <AutomationItemBreadcrumb name={slug} />
         <AutomationItemPageButton />
       </div>
       <Button
