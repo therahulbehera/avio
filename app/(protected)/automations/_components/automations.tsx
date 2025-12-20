@@ -20,7 +20,7 @@ const Automations = () => {
       const res = await fetch("api/automations");
       const json = await res.json();
       return {
-        automations: json.automations.map((s: Automation) => ({
+        automations: json.automations?.map((s: Automation) => ({
           ...s,
           createdAt: new Date(s.createdAt),
         })),
@@ -29,7 +29,7 @@ const Automations = () => {
     staleTime: 6 * 10 * 1000,
   });
 
-  if (data?.automations.length == 0)
+  if (data?.automations?.length == 0)
     return (
       <div className="flex flex-col gap-12 justify-center items-center text-xl p-20">
         <span>No automation found.</span>
