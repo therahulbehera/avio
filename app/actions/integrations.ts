@@ -1,6 +1,6 @@
 "use server";
 
-import { client } from "@/lib/prisma";
+import { client } from "@/prisma/prisma";
 
 export async function updateIntegration(
   token: string,

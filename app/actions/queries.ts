@@ -1,6 +1,6 @@
 "use server";
 
-import { client } from "@/lib/prisma";
+import { client } from "@/prisma/prisma";
 
 // User Queries
 
