@@ -17,7 +17,7 @@ const Automations = () => {
   const { data, isFetching } = useQuery({
     queryKey: ["user-automations"],
     queryFn: async () => {
-      const res = await fetch("api/automations");
+      const res = await fetch("/api/automations");
       const json = await res.json();
       return {
         automations: json.automations?.map((s: Automation) => ({
