@@ -1,13 +1,14 @@
-import { PrismaClient } from "@prisma/client";
+// lib/prisma.ts
+import type { PrismaClient } from "@prisma/client";
 
-declare global {
-  var prisma: PrismaClient | undefined;
-}
+let prisma: PrismaClient;
 
-export const client = globalThis.prisma || new PrismaClient();
-
-if (process.env.NODE_ENV !== "production") {
-  globalThis.prisma = client;
+export async function getPrisma() {
+  if (!prisma) {
+    const { PrismaClient } = await import("@prisma/client");
+    prisma = new PrismaClient();
+  }
+  return prisma;
 }
 
 export type Automation = {

@@ -1,8 +1,10 @@
 "use server";
 
-import { client } from "@/prisma/prisma";
+import { getPrisma } from "@/prisma/prisma";
 
 // User Queries
+
+const client = await getPrisma();
 
 export async function createUser(
   clerkId: string,
