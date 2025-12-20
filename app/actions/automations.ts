@@ -12,7 +12,11 @@ export async function getAllAutomations() {
       return { status: 200, message: "Automations found", automations };
     return { status: 404, data: "Oops! Something went wrong." };
   } catch (error) {
-    console.log("Some error occured in getting all automations. ", error);
+    console.error(
+      "Failed to get automations",
+      error instanceof Error ? error.message : error
+    );
+
     return { status: 500, data: "Internal Server Error" };
   }
   //   try {
