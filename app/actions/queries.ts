@@ -67,3 +67,9 @@ export async function fetchAutomations(clerkId: string) {
   });
   return user_with_automations?.automations ?? [];
 }
+
+export async function fetchAutomationById(automationId: string) {
+  return await client.automation.findUnique({
+    where: { id: automationId },
+  });
+}

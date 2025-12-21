@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import AutomationListItem from "./automation-list-item";
 import { Spinner } from "@/components/ui/spinner";
+import { getAllAutomations } from "@/lib/api";
 
 type Automation = {
   id: string;
@@ -16,16 +17,7 @@ type Automation = {
 const Automations = () => {
   const { data, isFetching } = useQuery({
     queryKey: ["user-automations"],
-    queryFn: async () => {
-      const res = await fetch("/api/automations");
-      const json = await res.json();
-      return {
-        automations: json.automations?.map((s: Automation) => ({
-          ...s,
-          createdAt: new Date(s.createdAt),
-        })),
-      };
-    },
+    queryFn: () => getAllAutomations(),
     staleTime: 6 * 10 * 1000,
   });
 
@@ -44,7 +36,12 @@ const Automations = () => {
         </div>
       ) : (
         data?.automations?.map(({ id, name, createdAt }: Automation) => (
-          <AutomationListItem key={id} title={name} createdAt={createdAt} />
+          <AutomationListItem
+            key={id}
+            title={name}
+            createdAt={createdAt}
+            id={id}
+          />
         ))
       )}
     </>

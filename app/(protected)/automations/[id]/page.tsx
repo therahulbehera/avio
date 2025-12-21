@@ -1,27 +1,8 @@
-import React from "react";
-import AutomationItemBreadcrumb from "./_components/automation-item-breadcrum";
-import { Button } from "@/components/ui/button";
-import AutomationItemPageButton from "../_components/automation-item-page-button";
+import AutomationPageClient from "./_components/automation-page-client";
 
-const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
-  const { slug } = await params;
-
-  console.log(slug);
-  return (
-    <div className="flex flex-col gap-4 justify-between items-center">
-      <div className="flex justify-between items-center w-full">
-        <AutomationItemBreadcrumb name={slug} />
-        <AutomationItemPageButton />
-      </div>
-      <Button
-        variant="secondary"
-        size="sm"
-        className="md:hidden w-full h-14 fixed left-0 bottom-2 rounded-full"
-      >
-        Activate
-      </Button>
-    </div>
-  );
+const page = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
+  return <AutomationPageClient id={id} />;
 };
 
 export default page;

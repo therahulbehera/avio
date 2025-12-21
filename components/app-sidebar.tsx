@@ -13,12 +13,9 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import SubscriptionCard from "./subscriptionCard";
 
 export function AppSidebar() {
-  const page = usePathname();
-  console.log(page);
   const { open, openMobile, setOpenMobile } = useSidebar();
   const items = [
     {

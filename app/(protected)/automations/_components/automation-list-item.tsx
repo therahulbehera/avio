@@ -12,15 +12,17 @@ import AutomationListItemTag from "./automation-list-item-badges";
 import TimeAgo from "./time-ago";
 
 const AutomationListItem = ({
+  id,
   title,
   createdAt,
 }: {
+  id: string;
   title: string;
   createdAt: string;
 }) => {
   return (
     <Link
-      href={"/automations/2121"}
+      href={`/automations/${id}`}
       className="hover:bg-neutral-700 p-px rounded-xl"
     >
       <Card className="gap-4">
