@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Geist } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -53,6 +54,7 @@ export default function RootLayout({
             {children}
           </ThemeProvider>
           <Analytics />
+          <SpeedInsights />
         </body>
       </html>
     </ClerkProvider>
