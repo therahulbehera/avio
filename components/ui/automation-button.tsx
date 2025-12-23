@@ -10,8 +10,6 @@ import { toast } from "sonner";
 const AutomationButton = () => {
   const queryClient = useQueryClient();
 
-  //   WIP: use toast to show loading and on success message.
-
   const { mutate } = useMutation({
     mutationFn: () => axios.post("/api/automations"),
     onMutate: () => {
@@ -23,7 +21,7 @@ const AutomationButton = () => {
     },
     onSuccess: (response) => {
       const data = response.data;
-      console.log("onSuccess", data.status);
+      console.log("after mutate data ", data);
 
       try {
         if (data.status === 200) {
@@ -40,7 +38,7 @@ const AutomationButton = () => {
   });
   return (
     <Button className="p-1 size-7 rounded-full" onClick={() => mutate()}>
-      {/* WIP: make an undo button */} <Activity />
+      <Activity />
     </Button>
   );
 };

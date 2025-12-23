@@ -18,7 +18,6 @@ export async function createUser(
       firstName,
       lastName,
       email,
-      subscription: { create: {} },
     },
     select: { firstName: true, lastName: true },
   });
@@ -28,7 +27,6 @@ export async function findUser(clerkId: string) {
   return await client.user.findUnique({
     where: { clerkId },
     include: {
-      subscription: true,
       integrations: {
         select: {
           id: true,
@@ -59,7 +57,6 @@ export async function fetchAutomations(clerkId: string) {
       automations: {
         orderBy: { createdAt: "asc" },
         include: {
-          keywords: true,
           listener: true,
         },
       },
@@ -71,5 +68,20 @@ export async function fetchAutomations(clerkId: string) {
 export async function fetchAutomationById(automationId: string) {
   return await client.automation.findUnique({
     where: { id: automationId },
+    include: {
+      listener: true,
+      posts: true,
+      user: { select: { integrations: true } },
+    },
+  });
+}
+
+export async function updateAutomation(
+  id: string,
+  update: { name?: string; active?: boolean }
+) {
+  return await client.automation.update({
+    where: { id },
+    data: { name: update.name, active: update.active },
   });
 }

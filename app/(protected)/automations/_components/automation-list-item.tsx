@@ -10,6 +10,7 @@ import AutomationListTypeButton from "./automation-list-type-button";
 import Link from "next/link";
 import AutomationListItemTag from "./automation-list-item-badges";
 import TimeAgo from "./time-ago";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AutomationListItem = ({
   id,
@@ -20,10 +21,20 @@ const AutomationListItem = ({
   title: string;
   createdAt: string;
 }) => {
+  const queryClient = useQueryClient();
+  const url = `/automations/${id}`;
+
   return (
     <Link
-      href={`/automations/${id}`}
+      href={url}
       className="hover:bg-neutral-700 p-px rounded-xl"
+      onMouseEnter={() => {
+        queryClient.prefetchQuery({
+          queryKey: ["user-automations", id],
+          queryFn: () => fetch(`/api/automations/${id}`).then((r) => r.json()),
+          staleTime: 15 * 60 * 1000,
+        });
+      }}
     >
       <Card className="gap-4">
         <CardHeader className="gap-1">

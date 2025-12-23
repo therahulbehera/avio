@@ -1,4 +1,4 @@
-import { fetchAutomationById } from "@/app/actions/queries";
+import { fetchAutomationById, updateAutomation } from "@/app/actions/queries";
 import { NextRequest, NextResponse } from "next/server";
 
 const UUID_REGEX =
@@ -25,6 +25,31 @@ export async function GET(
   return NextResponse.json({
     status: 200,
     message: "Successfully fetched the automation.",
+    automation,
+  });
+}
+
+export async function POST(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params;
+  console.log(id);
+
+  const body = await req.json();
+  const { name, active } = body;
+
+  const automation = await updateAutomation(id, { name, active });
+
+  if (!automation)
+    return NextResponse.json({
+      status: 404,
+      message: "Couldn't update the autmation.",
+    });
+
+  return NextResponse.json({
+    status: 200,
+    message: "Successfully updated the automation.",
     automation,
   });
 }

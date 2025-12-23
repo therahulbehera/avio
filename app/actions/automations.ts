@@ -34,10 +34,10 @@ export async function createAutomations() {
 
   try {
     const create = await createAutomation(user.id);
-    if (create) return { status: 200, data: "Automation Created" };
-    return { status: 404, data: "Oops! Something went wrong." };
+    if (create) return { status: 200, message: "Automation Created", create };
+    return { status: 404, message: "Oops! Something went wrong." };
   } catch (error) {
     console.log("Some error occured in getting all automations. ", error);
-    return { status: 500, data: "Internal Server Error" };
+    return { status: 500, message: "Internal Server Error" };
   }
 }

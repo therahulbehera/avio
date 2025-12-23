@@ -10,7 +10,7 @@ async function prefetch(
   return await client.prefetchQuery({
     queryKey: [key],
     queryFn: action,
-    staleTime: 6 * 10 * 1000,
+    staleTime: 15 * 60 * 1000,
   });
 }
 

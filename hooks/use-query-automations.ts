@@ -5,6 +5,6 @@ export function useQueryAutomations() {
   return useQuery({
     queryKey: ["user-automations"],
     queryFn: getAllAutomations,
-    staleTime: 6 * 10 * 1000,
+    staleTime: 15 * 60 * 1000,
   });
 }

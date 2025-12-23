@@ -8,3 +8,18 @@ export async function refreshToken(token: string) {
 
   return refresh_token.data;
 }
+
+export async function updateAutomation(
+  id: string,
+  payload: { name?: string; active?: boolean }
+) {
+  const res = await fetch(`/api/automations/${id}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) throw new Error("Automation update failed.");
+
+  return res.json();
+}

@@ -15,92 +15,98 @@ datasource db {
 }
 
 model User {
-  id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  clerkId      String         @unique
-  email        String         @unique
+  id           String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  clerkId      String            @unique
+  email        String            @unique
   firstName    String?
   lastName     String?
-  createdAt    DateTime       @default(now())
-  subscription Subscription?
+  createdAt    DateTime          @default(now())
+  subscription SUBSCRIPTION_PLAN @default(FREE)
   automations  Automation[]
-  integrations Integrations[]
+  integrations Integration[]
 }
 
-model Subscription {
-  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  userId String @unique @db.Uuid
-  user   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
+// model Subscription {
+//   id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+//   userId String @unique @db.Uuid
+//   user   User?  @relation(fields: [userId], references: [id], onDelete: Cascade)
+// }
+
+// WIP: clean up this shcema mess.
 
 model Automation {
-  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id        String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name      String
-  createdAt DateTime  @default(now())
-  active    Boolean   @default(false)
-  userId    String    @db.Uuid
-  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  trigger   Trigger[]
+  createdAt DateTime     @default(now())
+  active    Boolean      @default(false)
+  userId    String       @db.Uuid
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trigger   TRIGGER_TYPE @default(KEYWORD)
   listener  Listener?
   posts     Post[]
   dms       Dms[]
-  keywords  Keyword[]
+  keywords  String[]
+
+  @@index([userId])
 }
 
 model Dms {
-  id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  automationId String?     @db.Uuid
-  automation   Automation? @relation(fields: [automationId], references: [id], onDelete: Cascade)
-  createdAt    DateTime    @default(now())
+  id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  automationId String     @db.Uuid
+  automation   Automation @relation(fields: [automationId], references: [id], onDelete: Cascade)
+  createdAt    DateTime   @default(now())
   senderId     String?
   receiverId   String?
   message      String
 }
 
 model Post {
-  id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  automationId String?     @db.Uuid
-  automation   Automation? @relation(fields: [automationId], references: [id], onDelete: Cascade)
+  id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  automationId String     @db.Uuid
+  automation   Automation @relation(fields: [automationId], references: [id], onDelete: Cascade)
   postId       String
   media        String
   mediaType    MEDIA_TYPE
   caption      String?
+
+  @@index([automationId])
 }
 
-model Integrations {
+model Integration {
   id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name        INTEGRATIONS @default(INSTAGRAM)
   createdAt   DateTime     @default(now())
-  user        User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String       @db.Uuid
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   token       String
   expiresAt   DateTime?
-  instagramId String?      @unique
+  instagramId String       @unique
 }
 
 model Listener {
-  id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  automationId String?     @unique @db.Uuid
-  automation   Automation? @relation(fields: [automationId], references: [id], onDelete: Cascade)
-  listener     LISTENERS   @default(MESSAGE)
+  id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  automationId String     @unique @db.Uuid
+  automation   Automation @relation(fields: [automationId], references: [id], onDelete: Cascade)
+  listener     LISTENERS  @default(MESSAGE)
   prompt       String
   commentReply String?
-  dmCount      Int         @default(0)
-  commentCount Int         @default(0)
+  dmCount      Int        @default(0)
+  commentCount Int        @default(0)
 }
 
-model Trigger {
-  id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  type         String
-  automationId String?     @db.Uuid
-  automation   Automation? @relation(fields: [automationId], references: [id], onDelete: Cascade)
-}
+// model Trigger {
+//   id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+//   type         String
+//   automationId String?     @db.Uuid
+//   automation   Automation? @relation(fields: [automationId], references: [id], onDelete: Cascade)
+// }
 
-model Keyword {
-  id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  word         String
-  automationId String?     @db.Uuid
-  automation   Automation? @relation(fields: [automationId], references: [id], onDelete: Cascade)
-}
+// model Keyword {
+//   id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+//   word         String
+//   automationId String     @db.Uuid
+//   automation   Automation @relation(fields: [automationId], references: [id], onDelete: Cascade)
+// }
 
 enum SUBSCRIPTION_PLAN {
   FREE
@@ -114,10 +120,16 @@ enum INTEGRATIONS {
 enum MEDIA_TYPE {
   IMAGE
   VIDEO
-  CAROSEL_ALBUM
+  CAROuSEL_ALBUM
 }
 
 enum LISTENERS {
   SMARTAI
   MESSAGE
+}
+
+enum TRIGGER_TYPE {
+  COMMENT
+  DM
+  KEYWORD
 }
