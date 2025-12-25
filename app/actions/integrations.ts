@@ -8,7 +8,7 @@ export async function updateIntegration(
   id: string
 ) {
   const client = await getPrisma();
-  return await client.integrations.update({
+  return await client.integration.update({
     where: { id },
     data: {
       token,
