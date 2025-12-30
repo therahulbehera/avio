@@ -4,22 +4,21 @@ import { useQuery } from "@tanstack/react-query";
 import AutomationListItem from "./automation-list-item";
 import { Spinner } from "@/components/ui/spinner";
 import { getAllAutomations } from "@/lib/api";
-
-type Automation = {
-  id: string;
-  name: string;
-  createdAt: string;
-  active: boolean;
-  userId: string;
-  keywords: string[];
-};
+import { Automation } from "@prisma/client";
 
 const Automations = () => {
-  const { data, isFetching } = useQuery({
+  const { data, isFetching, isFetched } = useQuery({
     queryKey: ["user-automations"],
-    queryFn: () => getAllAutomations(),
+    queryFn: getAllAutomations,
     staleTime: 15 * 60 * 1000,
   });
+
+  if (isFetching)
+    return (
+      <div className="w-full h-full flex justify-center items-center p-20">
+        <Spinner />
+      </div>
+    );
 
   if (data?.automations?.length == 0)
     return (
@@ -28,24 +27,11 @@ const Automations = () => {
       </div>
     );
 
-  return (
-    <>
-      {isFetching ? (
-        <div className="w-full h-full flex justify-center items-center p-20">
-          <Spinner />
-        </div>
-      ) : (
-        data?.automations?.map(({ id, name, createdAt }: Automation) => (
-          <AutomationListItem
-            key={id}
-            title={name}
-            createdAt={createdAt}
-            id={id}
-          />
-        ))
-      )}
-    </>
-  );
+  if (isFetched) {
+    return data?.map((automation: Automation) => (
+      <AutomationListItem key={automation.id} automation={automation} />
+    ));
+  }
 };
 
 export default Automations;

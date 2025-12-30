@@ -9,7 +9,7 @@ import { Spinner } from "@/components/ui/spinner";
 
 const AutomationPageClient = ({ id }: { id: string }) => {
   const { data, isError, isFetching } = useQuery({
-    queryKey: ["user-automations", id],
+    queryKey: ["user-automation", id],
     queryFn: () => getAutomation(id),
     staleTime: 15 * 60 * 1000,
   });
@@ -28,7 +28,7 @@ const AutomationPageClient = ({ id }: { id: string }) => {
       </div>
     );
 
-  const { name, active } = data.automation;
+  const { name, active } = data;
 
   return (
     <div className="flex flex-col gap-4 justify-between items-center">

@@ -6,6 +6,7 @@ import { Activity } from "lucide-react";
 import React from "react";
 import { Button } from "./button";
 import { toast } from "sonner";
+import { Automation } from "@prisma/client";
 
 const AutomationButton = () => {
   const queryClient = useQueryClient();
@@ -26,10 +27,12 @@ const AutomationButton = () => {
       try {
         if (data.status === 200) {
           toast.success("Automation has been created");
+          const automation = data.automation;
 
-          queryClient.invalidateQueries({
-            queryKey: ["user-automations"],
-          });
+          queryClient.setQueryData(
+            ["user-automations"],
+            (old: Automation[] | undefined) => [...(old ?? []), automation]
+          );
         }
       } catch (error) {
         console.log("Couldn't create an automation. ", error);

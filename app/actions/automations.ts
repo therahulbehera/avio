@@ -33,8 +33,13 @@ export async function createAutomations() {
   const user = await onCurrentUser();
 
   try {
-    const create = await createAutomation(user.id);
-    if (create) return { status: 200, message: "Automation Created", create };
+    const newAutomation = await createAutomation(user.id);
+    if (newAutomation)
+      return {
+        status: 200,
+        message: "Automation Created",
+        automation: newAutomation,
+      };
     return { status: 404, message: "Oops! Something went wrong." };
   } catch (error) {
     console.log("Some error occured in getting all automations. ", error);

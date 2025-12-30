@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardHeader,
@@ -11,35 +13,22 @@ import Link from "next/link";
 import AutomationListItemTag from "./automation-list-item-badges";
 import TimeAgo from "./time-ago";
 import { useQueryClient } from "@tanstack/react-query";
+import { Automation } from "@prisma/client";
 
-const AutomationListItem = ({
-  id,
-  title,
-  createdAt,
-}: {
-  id: string;
-  title: string;
-  createdAt: string;
-}) => {
+const AutomationListItem = ({ automation }: { automation: Automation }) => {
+  const { id, name, createdAt } = automation;
+
   const queryClient = useQueryClient();
+  queryClient.setQueryData(["user-automation", id], automation);
+
   const url = `/automations/${id}`;
 
   return (
-    <Link
-      href={url}
-      className="hover:bg-neutral-700 p-px rounded-xl"
-      onMouseEnter={() => {
-        queryClient.prefetchQuery({
-          queryKey: ["user-automations", id],
-          queryFn: () => fetch(`/api/automations/${id}`).then((r) => r.json()),
-          staleTime: 15 * 60 * 1000,
-        });
-      }}
-    >
+    <Link href={url} className="hover:bg-neutral-700 p-px rounded-xl">
       <Card className="gap-4">
         <CardHeader className="gap-1">
           <CardTitle className="flex justify-between">
-            <span>{title}</span>
+            <span>{name}</span>
             <TimeAgo date={createdAt} />
           </CardTitle>
           <CardDescription className="text-neutral-400">
@@ -47,41 +36,7 @@ const AutomationListItem = ({
           </CardDescription>
         </CardHeader>
         <CardContent className="flex justify-between">
-          {/* <div className="flex flex-wrap gap-2 max-w-40">
-            <Button
-              className="px-2 rounded-full h-6 text-[12px]"
-              variant={"outline"}
-            >
-              Yes
-            </Button>
-            <Button
-              className="px-2 rounded-full h-6 text-[12px]"
-              variant={"outline"}
-            >
-              Let&apos;s Go
-            </Button>
-            <Button
-              className="px-2 rounded-full h-6 text-[12px]"
-              variant={"outline"}
-            >
-              Intrested
-            </Button>
-            <Button
-              className="px-2 rounded-full h-6 text-[12px]"
-              variant={"outline"}
-            >
-              Where do i start?
-            </Button>
-          </div> */}
-          <AutomationListItemTag
-            items={[
-              "Yes",
-              "This works!",
-              "Intrested",
-              "Where do I start?",
-              "somemore words to see the reaction.",
-            ]}
-          />
+          <AutomationListItemTag items={["Yes", "This works!", "Intrested"]} />
           {/* <AutomationListTypeButton innerText={"SmartAI"} type={"gradient"} /> */}
           <AutomationListTypeButton innerText={"Standard"} type={"normal"} />
         </CardContent>

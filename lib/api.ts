@@ -1,7 +1,8 @@
 export async function getAutomation(id: string) {
   const res = await fetch(`/api/automations/${id}`);
   if (!res.ok) throw new Error("Failed");
-  return res.json();
+  const { automation } = await res.json();
+  return automation;
 }
 
 export async function getAllAutomations() {
@@ -24,5 +25,5 @@ export async function getAllAutomations() {
   //   return item;
   // });
 
-  return { automations };
+  return automations;
 }
