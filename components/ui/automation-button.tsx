@@ -7,9 +7,12 @@ import React from "react";
 import { Button } from "./button";
 import { toast } from "sonner";
 import { Automation } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
 const AutomationButton = () => {
   const queryClient = useQueryClient();
+
+  const router = useRouter();
 
   const { mutate } = useMutation({
     mutationFn: () => axios.post("/api/automations"),
@@ -33,6 +36,10 @@ const AutomationButton = () => {
             ["user-automations"],
             (old: Automation[] | undefined) => [...(old ?? []), automation]
           );
+
+          // WIP: don't add this automation, the values are a mess
+
+          router.push(`/automations/${automation.id}?new=true`);
         }
       } catch (error) {
         console.log("Couldn't create an automation. ", error);

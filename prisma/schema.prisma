@@ -45,7 +45,7 @@ model Automation {
   listener  Listener?
   posts     Post[]
   dms       Dms[]
-  keywords  String[]
+  keywords  String
 
   @@index([userId])
 }

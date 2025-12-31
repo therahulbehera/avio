@@ -7,8 +7,9 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Input } from "@/components/ui/input";
 import { useUpdateAutomation } from "@/hooks/useUpdateAutomation";
-import { Check, Pencil } from "lucide-react";
+import { Check, Pencil, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -26,6 +27,19 @@ const AutomationItemBreadcrumb = ({
 
   const mutation = useUpdateAutomation(id);
 
+  const mutationHandler = () => {
+    if (automationName == name) setIsActive(!isActive);
+    else
+      mutation.mutate(
+        { name: automationName },
+        {
+          onSuccess: () => {
+            setIsActive(false);
+          },
+        }
+      );
+  };
+
   useEffect(() => {
     if (isActive) inputRef.current?.focus();
   }, [isActive]);
@@ -37,29 +51,27 @@ const AutomationItemBreadcrumb = ({
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink className="flex justify-between items-center gap-2 ">
+          <BreadcrumbLink className="flex justify-between items-center gap-2">
             {isActive ? (
               <>
-                <input
+                <Input
                   ref={inputRef}
                   type="text"
-                  className="border-primary/70 border-b focus:border-b"
+                  className="border-primary/70 border-b focus:border-b h-8"
                   value={automationName}
                   onChange={(e) => setAutomationName(e.target.value)}
+                  onBlur={() => {
+                    if (automationName === name) {
+                      setIsActive(!isActive);
+                      return;
+                    }
+                  }}
                 />{" "}
-                <Check
+                <Check size={14} onClick={mutationHandler} />
+                <RotateCcw
                   size={14}
                   onClick={() => {
-                    if (automationName == name) setIsActive(!isActive);
-                    else
-                      mutation.mutate(
-                        { name: automationName },
-                        {
-                          onSuccess: () => {
-                            setIsActive(false);
-                          },
-                        }
-                      );
+                    setAutomationName(name);
                   }}
                 />
               </>

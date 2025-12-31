@@ -42,10 +42,10 @@ export async function findUser(clerkId: string) {
 // Automation Queries
 
 export async function createAutomation(clerkId: string) {
-  return await client.user.update({
-    where: { clerkId },
+  return await client.automation.create({
     data: {
-      automations: { create: { name: "New Automation" } },
+      name: "New Automation",
+      user: { connect: { clerkId } },
     },
   });
 }
