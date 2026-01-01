@@ -13,7 +13,7 @@ const initialState: AutomationRedux = {
   active: false,
   userId: "",
   trigger: "COMMENT",
-  keywords: [],
+  keyword: "",
 };
 
 export const automationSlice = createSlice({

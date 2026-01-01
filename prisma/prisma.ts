@@ -10,12 +10,3 @@ export async function getPrisma() {
   }
   return prisma;
 }
-
-export type Automation = {
-  id: string;
-  name: string;
-  createdAt: string;
-  active: boolean;
-  userId: string;
-  keywords: string[];
-};
