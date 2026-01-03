@@ -5,9 +5,18 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ModeToggle } from "./ui/darkmode";
+import { useUser } from "@clerk/nextjs";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { isSignedIn } = useUser();
+
+  const buttonLink = isSignedIn ? (
+    <Link href={"/dashboard"}>Go to Dashboard</Link>
+  ) : (
+    <Link href={"/sign-in"}>Sign In</Link>
+  );
 
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -15,7 +24,9 @@ export function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <span className="text-xl font-bold text-foreground">Avio</span>
+            <Link href={"/"} className="text-xl font-bold text-foreground">
+              Avio
+            </Link>
           </div>
 
           {/* Desktop Menu */}
@@ -46,11 +57,13 @@ export function Navigation() {
               variant="outline"
               className="border-primary text-primary hover:text-primary/70 hover:bg-primary/70 bg-transparent"
             >
-              <Link href={"/sign-in"}>Sign In</Link>
+              {buttonLink}
             </Button>
-            <Button className="bg-primary hover:bg-primary/70 text-primary-foreground">
-              Start Free Trial
-            </Button>
+            {!isSignedIn && (
+              <Button className="bg-primary hover:bg-primary/70 text-primary-foreground">
+                Start Free Trial
+              </Button>
+            )}
             <ModeToggle />
           </div>
 
@@ -93,11 +106,13 @@ export function Navigation() {
                 variant="outline"
                 className="flex-1 border-primary text-primary hover:text-primary/70 hover:bg-primary/70 bg-transparent"
               >
-                <Link href={"/sign-in"}>Sign In</Link>
+                {buttonLink}
               </Button>
-              <Button className="flex-1 bg-primary text-primary-foreground text-sm">
-                Start Free
-              </Button>
+              {!isSignedIn && (
+                <Button className="flex-1 bg-primary text-primary-foreground text-sm">
+                  Start Free
+                </Button>
+              )}
             </div>
           </div>
         )}

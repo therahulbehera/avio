@@ -1,4 +1,5 @@
 import { Mail, Github, Linkedin, Twitter } from "lucide-react";
+import Link from "next/link";
 
 export function Footer() {
   return (
@@ -8,6 +9,9 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                <span className="text-primary-foreground font-bold">A</span>
+              </div>
               <span className="font-bold text-foreground">Avio</span>
             </div>
             <p className="text-sm text-muted-foreground">
@@ -20,28 +24,28 @@ export function Footer() {
             <h4 className="font-semibold text-foreground mb-4">Product</h4>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/#features"
                   className="text-sm text-muted-foreground hover:text-primary transition"
                 >
                   Features
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/#pricing"
                   className="text-sm text-muted-foreground hover:text-primary transition"
                 >
                   Pricing
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/#how-it-works"
                   className="text-sm text-muted-foreground hover:text-primary transition"
                 >
-                  Security
-                </a>
+                  How it Works
+                </Link>
               </li>
             </ul>
           </div>
@@ -51,28 +55,28 @@ export function Footer() {
             <h4 className="font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/company/about"
                   className="text-sm text-muted-foreground hover:text-primary transition"
                 >
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/company/blog"
                   className="text-sm text-muted-foreground hover:text-primary transition"
                 >
                   Blog
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/company/careers"
                   className="text-sm text-muted-foreground hover:text-primary transition"
                 >
                   Careers
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -82,28 +86,28 @@ export function Footer() {
             <h4 className="font-semibold text-foreground mb-4">Legal</h4>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/legal/privacy"
                   className="text-sm text-muted-foreground hover:text-primary transition"
                 >
                   Privacy
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/legal/terms"
                   className="text-sm text-muted-foreground hover:text-primary transition"
                 >
                   Terms
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/legal/contact"
                   className="text-sm text-muted-foreground hover:text-primary transition"
                 >
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

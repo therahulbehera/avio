@@ -7,6 +7,7 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { PrefetchUserAutomations, PrefetchUserProfile } from "@/lib/prefetch";
 import ProtectedNavBar from "@/components/protected-nav-bar";
 import { Toaster } from "sonner";
+import { Footer } from "@/components/footer";
 // import DynamicBreadcrumb from "@/components/ui/dynamic-bread-crumb";
 
 export default async function layout({
@@ -33,6 +34,7 @@ export default async function layout({
           </QueryProvider>
         </div>
       </SidebarProvider>
+      <Footer />
     </>
   );
 }
