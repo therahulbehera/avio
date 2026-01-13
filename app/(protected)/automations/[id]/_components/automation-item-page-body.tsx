@@ -21,7 +21,10 @@ const AutomationItemPageBody = ({ id }: { id: string }) => {
   return (
     <div className="w-full h-full">
       {when ? (
-        <AutomationItemPageBodyWhen />
+        <AutomationItemPageBodyWhen
+          trigger={automation?.trigger || "dm"}
+          keyword={automation?.keyword || "keyword"}
+        />
       ) : (
         <Button
           className="border-dashed w-full my-4"

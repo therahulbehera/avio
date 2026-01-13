@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -16,7 +18,13 @@ import {
 
 import React from "react";
 
-const AutomationItemPageBodyWhen = () => {
+const AutomationItemPageBodyWhen = ({
+  trigger,
+  keyword,
+}: {
+  trigger: string;
+  keyword: string;
+}) => {
   return (
     <Card>
       <CardHeader>
@@ -38,7 +46,7 @@ const AutomationItemPageBodyWhen = () => {
       <CardFooter className="flex-col items-start">
         <Input type="text" placeholder="Keyword" />
         <span className="text-primary text-sm pt-2">
-          Keyword that the client sends.
+          Keyword that the client sends.{trigger + " " + keyword}
         </span>
       </CardFooter>
     </Card>
